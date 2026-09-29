@@ -370,20 +370,7 @@ html{scroll-behavior:smooth;}
   <div style="max-width:1360px;margin:0 auto;padding:clamp(28px,3cqi,48px) clamp(20px,4cqi,56px) clamp(72px,8cqi,128px)">
     <sc-if value="{{ shopHas }}" hint-placeholder-val="{{ true }}">
       <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(clamp(150px,40cqi,290px),1fr));gap:clamp(32px,3cqi,48px) clamp(12px,2cqi,28px)">
-        <sc-for list="{{ shopFirst }}" as="p" hint-placeholder-count="4"><dc-import name="ProductCard" product="{{ p }}" ratio="3 / 4.3" hint-size="100%,460px"></dc-import></sc-for>
-      </div>
-    </sc-if>
-    <sc-if value="{{ hasRest }}" hint-placeholder-val="{{ true }}">
-      <div style="margin:clamp(48px,6cqi,96px) 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:24px clamp(24px,4cqi,72px);align-items:center">
-        <div style="position:relative;aspect-ratio:16 / 10;background:#FFFAF0;border-radius:18px;overflow:hidden"><image-slot id="shop-editorial" src="assets/yaqoot-marjan-3-framed.webp" shape="rect" placeholder="Editorial, fabric fall or back detail" radius="18"></image-slot></div>
-        <div style="display:flex;flex-direction:column;gap:16px;max-width:420px">
-          <span style="font-size:10.5px;letter-spacing:0.36em;text-transform:uppercase;color:#861A22">Made for you</span>
-          <p style="margin:0;font-family:'Cormorant',serif;font-size:clamp(30px,3cqi,42px);line-height:1.1;font-weight:300;letter-spacing:-0.012em">Don't see the abaya you envision?</p>
-          <div><button onClick="{{ go.create }}" style="background:none;border:0;padding:0 0 6px;border-bottom:1px solid #C9A84C;color:#861A22;font-size:12px;letter-spacing:0.24em;text-transform:uppercase;cursor:pointer" style-hover="color:#0D0D0D">Create Your Qyrah</button></div>
-        </div>
-      </div>
-      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(clamp(150px,40cqi,290px),1fr));gap:clamp(32px,3cqi,48px) clamp(12px,2cqi,28px)">
-        <sc-for list="{{ shopRest }}" as="p" hint-placeholder-count="4"><dc-import name="ProductCard" product="{{ p }}" ratio="3 / 4.3" hint-size="100%,460px"></dc-import></sc-for>
+        <sc-for list="{{ shopList }}" as="p" hint-placeholder-count="8"><dc-import name="ProductCard" product="{{ p }}" ratio="3 / 4.3" hint-size="100%,460px"></dc-import></sc-for>
       </div>
     </sc-if>
     <sc-if value="{{ shopEmpty }}" hint-placeholder-val="{{ false }}">
@@ -2369,7 +2356,7 @@ class Component extends DCLogic {
       newsOpen: s.newsOpen && !s.newsDone, closeNews: () => { this._put('news', true); this.setState({ newsOpen: false, newsDone: true }); },
 
       shopTitle, shopEyebrow, shopCount: shopList.length + (shopList.length === 1 ? ' piece' : ' pieces'),
-      shopFirst: shopList.slice(0, 4), shopRest: shopList.slice(4), hasRest: shopList.length > 4, shopEmpty: !shopList.length, shopHas: shopList.length > 0,
+      shopList, shopFirst: shopList.slice(0, 4), shopRest: shopList.slice(4), hasRest: shopList.length > 4, shopEmpty: !shopList.length, shopHas: shopList.length > 0,
       chips, hasChips: chips.length > 0, clearFilters, sort: s.sort, onSort: e => this.setState({ sort: e.target.value }),
       filterOpen: s.filterOpen, openFilter: () => this.setState({ filterOpen: true }), closeFilter: () => this.setState({ filterOpen: false }),
       filterLabel: chips.length ? 'Filter (' + chips.length + ')' : 'Filter', fGroups, filterPanel: sheet(s.filterOpen), filterScrim: scrim(s.filterOpen),
